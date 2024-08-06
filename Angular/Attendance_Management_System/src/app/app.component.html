@@ -1,0 +1,122 @@
+<body>
+    <div class="headers">
+        <div><img src="https://skoolapp.com/wp-content/uploads/2018/03/website-attandence-features-page.png"></div>
+        <div><h1 id="h1"><span>A</span>ttendance <span>M</span>anagement <span>S</span>ystem</h1></div>
+    </div>
+    <br><br><br>
+    <div class="section">
+        <div class="section1">
+            <img src="https://media.istockphoto.com/id/1409722748/photo/students-raising-hands-while-teacher-asking-them-questions-in-classroom.jpg?s=612x612&w=0&k=20&c=NbVChOV9wIbQOhUD6BqpouZHHBbyQ2rkSjaVfIhpMv8=" alt="">
+            <h2>Attend Today, Achieve Tomorrow!!</h2>
+        </div>
+        <div class="section2">
+            <h2>Mark Attendance</h2>
+            <br>
+            <form #myForm="ngForm">
+                <div class="form-group">
+                    <label for="regNo">Register number: </label>
+                    <input type="text"
+                    id="input1"
+                    class="form-control" 
+                    name="regNo" 
+                    #regNo="ngModel" ngModel
+                    required
+                    pattern="[0-9]+">
+                </div>
+                <div *ngIf="regNo.touched">
+                    <div *ngIf="regNo.errors?.['required']">
+                      <b style="color:red">Register Number Required.</b>
+                    </div>
+                    <div *ngIf="regNo.errors?.['pattern']">
+                      <b style="color:red">Invalid Register Number.</b>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="studName">Student name: &nbsp;&nbsp;&nbsp;</label>
+                    <input type="text"
+                    id="input1"
+                    class="form-control" 
+                    name="studName" 
+                    #studName="ngModel" ngModel
+                    required
+                    pattern="[a-zA-Z]+">
+                </div>
+                <div *ngIf="studName.touched">
+                    <div *ngIf="studName.errors?.['required']">
+                      <b style="color:red">Student Name Required.</b>
+                    </div>
+                    <div *ngIf="studName.errors?.['pattern']">
+                      <b style="color:red">Invalid Student Name.</b>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Date: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <input type="date"
+                    id="input1"
+                    class="form-control" 
+                    name="date" 
+                    #date="ngModel" ngModel
+                    required>
+                </div>
+                <div *ngIf="date.touched">
+                    <div *ngIf="date.errors?.['required']">
+                      <b style="color:red">Date Required.</b>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="attendance">Attendance: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                    <select name="attendance" [(ngModel)]="student.attendance" id="atten1">
+                        <option value="Present">Present</option>
+                        <option value="Absent">Absent</option>
+                        <option value="Late">Late</option>
+                    </select>
+                </div>
+                <div class="submission">
+                    <div class="submission1">
+                        <div>
+                            <input type="submit" value = "Insert" id="submitInput" (click) = insertStudent(myForm.value)>
+                        </div> 
+                        <div>
+                            <input type="submit" value = "Update" id="submitInput" (click) = updateStudent(myForm.value)>
+                        </div> 
+                        <div>
+                            <input type="submit" value = "Delete" id="submitInput" (click) = deleteStudent(myForm.value)>
+                        </div> 
+                    </div>
+                    <br>
+                    <div class="submission2">
+                        <div>
+                            <input type="submit" value = "Find" id="submitInput" (click) = findStudent(myForm.value)>
+                        </div> 
+                        <div>
+                            <input type="submit" value = "Find All" id="submitInput" (click) = findAllStudent()>
+                        </div> 
+                    </div>
+                </div>  
+            </form>
+        </div>
+    </div>
+    <h2 style="text-align: center;"> {{ result }} </h2>
+    <div>
+        <div class="section3" *ngIf="flag">
+            <h2>View Atttendance</h2>
+            <br>
+            <div *ngIf="flag">
+                <table cellpadding="0" cellspacing="0">
+                <tr>
+                    <th>Register</th>
+                    <th>Student name</th>
+                    <th>Date</th>
+                    <th>Attendance status</th>
+                </tr>
+                    <tr *ngFor="let stu of studentArr">
+                        <td> {{stu.id}} </td><td> {{stu.studName}} </td><td> {{stu.date}} </td><td>{{stu.attendance}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
